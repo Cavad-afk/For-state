@@ -1,0 +1,136 @@
+from warnings import simplefilter
+simplefilter(action='ignore', category=FutureWarning)
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+import pandas as pd
+import mglearn
+from IPython.display import display
+from sklearn.model_selection import train_test_split
+
+#FIRST PROMPT
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+data = pd.read_excel(r'C:\Users\Akrilon\Desktop\energy2.xlsx')
+X = data['Статьи баланса'].values.reshape(-1, 1)
+y = data['Производство'].values.reshape(-1, 1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Polynomial Regression
+poly = PolynomialFeatures(degree=20)
+X_poly = poly.fit_transform(X_train)
+poly_reg = LinearRegression()
+poly_reg.fit(X_poly, y_train)
+
+# Evaluate models
+print('Полиномиальная регрессия')
+print('R^2 значение обучающего набора: {:.2f}'.format(poly_reg.score(poly.fit_transform(X_train), y_train)))
+print('R^2 значение тестового набора: {:.2f}'.format(poly_reg.score(poly.fit_transform(X_test), y_test)))
+y_pred_poly = poly_reg.predict(poly.fit_transform(X_test))
+
+# Linear Regression
+lin_reg = LinearRegression()
+lin_reg.fit(X_train, y_train)
+
+# Evaluate Linear Regression
+print('Линейная регрессия')
+print('R^2 значение обучающего набора: {:.2f}'.format(lin_reg.score(X_train, y_train)))
+print('R^2 значение тестового набора: {:.2f}'.format(lin_reg.score(X_test, y_test)))
+y_pred_lin = lin_reg.predict(X_test)
+
+plt.plot(X_plot, lin_reg.predict(X_plot), color='orange', label='Линейная регрессия')
+
+# Plot models
+X_plot = np.linspace(X.min(), X.max()+2, 100).reshape(-1, 1)
+plt.scatter(X_train, y_train, color='red', label='Обучающий набор')
+plt.scatter(X_test, y_test, color='blue', label='Тестовый набор')
+plt.plot(X_plot, poly_reg.predict(poly.fit_transform(X_plot)), color='green', label='Полиномиальная регрессия')
+plt.legend()
+plt.show()
+
+
+#SECOND PROMPT
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+data = pd.read_excel(r'C:\Users\Akrilon\Desktop\energy.xlsx')
+X = data['Статья баланса'].values.reshape(-1, 1)
+y = data['Производство-брутто, всего'].values.reshape(-1, 1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Polynomial Regression
+poly = PolynomialFeatures(degree=20)
+X_poly = poly.fit_transform(X_train)
+poly_reg = LinearRegression()
+poly_reg.fit(X_poly, y_train)
+
+# Evaluate models
+print('Полиномиальная регрессия')
+print('R^2 значение обучающего набора: {:.2f}'.format(poly_reg.score(poly.fit_transform(X_train), y_train)))
+print('R^2 значение тестового набора: {:.2f}'.format(poly_reg.score(poly.fit_transform(X_test), y_test)))
+y_pred_poly = poly_reg.predict(poly.fit_transform(X_test))
+
+# Linear Regression
+lin_reg = LinearRegression()
+lin_reg.fit(X_train, y_train)
+
+# Evaluate Linear Regression
+print('Линейная регрессия')
+print('R^2 значение обучающего набора: {:.2f}'.format(lin_reg.score(X_train, y_train)))
+print('R^2 значение тестового набора: {:.2f}'.format(lin_reg.score(X_test, y_test)))
+y_pred_lin = lin_reg.predict(X_test)
+
+plt.plot(X_plot, lin_reg.predict(X_plot), color='orange', label='Линейная регрессия')
+
+# Plot models
+X_plot = np.linspace(X.min(), X.max()+2, 100).reshape(-1, 1)
+plt.scatter(X_train, y_train, color='red', label='Обучающий набор')
+plt.scatter(X_test, y_test, color='blue', label='Тестовый набор')
+plt.plot(X_plot, poly_reg.predict(poly.fit_transform(X_plot)), color='green', label='Полиномиальная регрессия')
+plt.legend()
+plt.show()
+
+#THIRD PROMPT
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+data = pd.read_excel(r'C:\Users\Akrilon\Desktop\energy3.xlsx')
+X = data['Статья баланса'].values.reshape(-1, 1)
+y = data['Производство-брутто, всего'].values.reshape(-1, 1)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Polynomial Regression
+poly = PolynomialFeatures(degree=20)
+X_poly = poly.fit_transform(X_train)
+poly_reg = LinearRegression()
+poly_reg.fit(X_poly, y_train)
+
+# Evaluate models
+print('Полиномиальная регрессия')
+print('R^2 значение обучающего набора: {:.2f}'.format(poly_reg.score(poly.fit_transform(X_train), y_train)))
+print('R^2 значение тестового набора: {:.2f}'.format(poly_reg.score(poly.fit_transform(X_test), y_test)))
+y_pred_poly = poly_reg.predict(poly.fit_transform(X_test))
+
+# Linear Regression
+lin_reg = LinearRegression()
+lin_reg.fit(X_train, y_train)
+
+# Evaluate Linear Regression
+print('Линейная регрессия')
+print('R^2 значение обучающего набора: {:.2f}'.format(lin_reg.score(X_train, y_train)))
+print('R^2 значение тестового набора: {:.2f}'.format(lin_reg.score(X_test, y_test)))
+y_pred_lin = lin_reg.predict(X_test)
+
+plt.plot(X_plot, lin_reg.predict(X_plot), color='orange', label='Линейная регрессия')
+
+# Plot models
+X_plot = np.linspace(X.min(), X.max()+2, 100).reshape(-1, 1)
+plt.scatter(X_train, y_train, color='red', label='Обучающий набор')
+plt.scatter(X_test, y_test, color='blue', label='Тестовый набор')
+plt.plot(X_plot, poly_reg.predict(poly.fit_transform(X_plot)), color='green', label='Полиномиальная регрессия')
+plt.legend()
+plt.show()
